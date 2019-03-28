@@ -358,7 +358,7 @@ public final class KLog {
 
                 @Override
                 public void onError(@NonNull HLErrorResponse hlErrorResponse) {
-                    e(hlErrorResponse);
+                    e(hlErrorResponse.getErrorMessage());
                 }
             });
         }
