@@ -17,6 +17,7 @@ Android LogCat 工具类，目前功能：
 - 支持无限长字符串打印，无Logcat4000字符限制
 - 支持变长参数，任意个数打印参数
 - 支持设置全局Tag
+- 利用HyperLog上傳檔案至指定 Server
 
 中文文档请戳[这里](http://kaizige.vip/2016/06/13/klog/)。
 
