@@ -2,6 +2,7 @@ package com.socks.library.klog;
 
 import android.util.Log;
 
+import com.hypertrack.hyperlog.HyperLog;
 import com.socks.library.KLog;
 import com.socks.library.KLogUtil;
 
@@ -36,7 +37,12 @@ public class JsonLog {
         message = headString + KLog.LINE_SEPARATOR + message;
         String[] lines = message.split(KLog.LINE_SEPARATOR);
         for (String line : lines) {
-            Log.d(tag, "║ " + line);
+            if (KLog.IS_UPLOAD_LOG) {
+                HyperLog.d(tag, "║ " + line);
+            }
+            else {
+                Log.d(tag, "║ " + line);
+            }
         }
         KLogUtil.printLine(tag, false);
     }

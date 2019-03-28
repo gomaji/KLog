@@ -2,7 +2,7 @@ package com.socks.library.klog;
 
 import android.util.Log;
 
-
+import com.hypertrack.hyperlog.HyperLog;
 import com.socks.library.KLog;
 import com.socks.library.KLogUtil;
 
@@ -34,7 +34,12 @@ public class XmlLog {
         String[] lines = xml.split(KLog.LINE_SEPARATOR);
         for (String line : lines) {
             if (!KLogUtil.isEmpty(line)) {
-                Log.d(tag, "║ " + line);
+                if (KLog.IS_UPLOAD_LOG) {
+                    HyperLog.d(tag, "║ " + line);
+                }
+                else {
+                    Log.d(tag, "║ " + line);
+                }
             }
         }
         KLogUtil.printLine(tag, false);

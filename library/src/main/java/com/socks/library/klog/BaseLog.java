@@ -2,6 +2,7 @@ package com.socks.library.klog;
 
 import android.util.Log;
 
+import com.hypertrack.hyperlog.HyperLog;
 import com.socks.library.KLog;
 
 /**
@@ -32,19 +33,44 @@ public class BaseLog {
     private static void printSub(int type, String tag, String sub) {
         switch (type) {
             case KLog.V:
-                Log.v(tag, sub);
+                if (KLog.IS_UPLOAD_LOG) {
+                    HyperLog.v(tag, sub);
+                }
+                else{
+                    Log.v(tag, sub);
+                }
                 break;
             case KLog.D:
-                Log.d(tag, sub);
+                if (KLog.IS_UPLOAD_LOG) {
+                    HyperLog.d(tag, sub);
+                }
+                else {
+                    Log.d(tag, sub);
+                }
                 break;
             case KLog.I:
-                Log.i(tag, sub);
+                if (KLog.IS_UPLOAD_LOG) {
+                    HyperLog.i(tag, sub);
+                }
+                else {
+                    Log.i(tag, sub);
+                }
                 break;
             case KLog.W:
-                Log.w(tag, sub);
+                if (KLog.IS_UPLOAD_LOG) {
+                    HyperLog.w(tag, sub);
+                }
+                else {
+                    Log.w(tag, sub);
+                }
                 break;
             case KLog.E:
-                Log.e(tag, sub);
+                if (KLog.IS_UPLOAD_LOG) {
+                    HyperLog.e(tag, sub);
+                }
+                else {
+                    Log.e(tag, sub);
+                }
                 break;
             case KLog.A:
                 Log.wtf(tag, sub);

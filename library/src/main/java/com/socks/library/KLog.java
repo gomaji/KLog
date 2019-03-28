@@ -1,9 +1,15 @@
 package com.socks.library;
 
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.hypertrack.hyperlog.HLCallback;
+import com.hypertrack.hyperlog.HyperLog;
+import com.hypertrack.hyperlog.error.HLErrorResponse;
 import com.socks.library.klog.BaseLog;
 import com.socks.library.klog.FileLog;
 import com.socks.library.klog.JsonLog;
@@ -12,6 +18,7 @@ import com.socks.library.klog.XmlLog;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 
 /**
  * This is a Log tool，with this you can the following
@@ -61,6 +68,9 @@ public final class KLog {
     private static boolean mIsGlobalTagEmpty = true;
     private static boolean IS_SHOW_LOG = true;
 
+    public static boolean IS_UPLOAD_LOG = false;
+    private static String mUploadLogUrl;
+
     public static void init(boolean isShowLog) {
         IS_SHOW_LOG = isShowLog;
     }
@@ -69,6 +79,16 @@ public final class KLog {
         IS_SHOW_LOG = isShowLog;
         mGlobalTag = tag;
         mIsGlobalTagEmpty = TextUtils.isEmpty(mGlobalTag);
+    }
+
+    public static void initUploadLog(Context context, boolean isShowLog, String uploadLogUrl) {
+        IS_SHOW_LOG = isShowLog;
+        IS_UPLOAD_LOG = !TextUtils.isEmpty(uploadLogUrl);
+        if (IS_UPLOAD_LOG) {
+            mUploadLogUrl = uploadLogUrl;
+            HyperLog.initialize(context);
+            HyperLog.setLogLevel(Log.VERBOSE);
+        }
     }
 
     public static void v() {
@@ -327,4 +347,20 @@ public final class KLog {
         }
     }
 
+    public static void uploadLogFile(Context context , HashMap<String, String> header) {
+        if (!TextUtils.isEmpty(mUploadLogUrl)) {
+            HyperLog.setURL(mUploadLogUrl);
+            HyperLog.pushLogs(context, header, false, new HLCallback() {
+                @Override
+                public void onSuccess(@NonNull Object o) {
+                    i(o);
+                }
+
+                @Override
+                public void onError(@NonNull HLErrorResponse hlErrorResponse) {
+                    e(hlErrorResponse);
+                }
+            });
+        }
+    }
 }

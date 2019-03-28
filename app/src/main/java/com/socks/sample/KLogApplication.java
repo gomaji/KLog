@@ -13,6 +13,7 @@ public class KLogApplication extends Application {
     public void onCreate() {
         super.onCreate();
 //        KLog.init(BuildConfig.LOG_DEBUG);
-        KLog.init(BuildConfig.LOG_DEBUG, "Kai");
+//        KLog.init(BuildConfig.LOG_DEBUG, "Kai");
+        KLog.initUploadLog(getApplicationContext(), BuildConfig.LOG_DEBUG, "http://xxxx");
     }
 }
