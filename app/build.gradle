@@ -29,9 +29,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.loopj.android:android-async-http:1.4.9'
-    compile 'cz.msebera.android:httpclient:4.3.6'
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'cz.msebera.android:httpclient:4.3.6'
 //    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
-    compile project(':library')
+    implementation project(':library')
 }
